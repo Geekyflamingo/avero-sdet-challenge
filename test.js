@@ -17,6 +17,7 @@ describe('valid OpenAPI file', function () {
   });
 });
 
+
 describe('GET /v1/core/request', function() {
   describe('GET for /v1/core/businesses and /v1/core/businesses/{businessIds}', function () {
     it('should satisfy the OpenAPI spec for all businesses', function(done) {
@@ -47,6 +48,7 @@ describe('GET /v1/core/request', function() {
       });
     });
   });
+
   describe('GET for /v1/sales/summary-sales and /v1/sales/summary-sales+params', function () {
     it('should satisfy the OpenAPI spec for all SummarySales', function(done) {
       chai.request(baseURL)
@@ -104,6 +106,8 @@ describe('GET /v1/core/request', function() {
     });
   });
 });
+
+
 describe('res matches a path but none of its HTTP methods', function () {
   describe('HEAD HTTP method for all paths', function () {
     it('should throw an error for /v1/sales/summary-sales', function (done) {
@@ -134,6 +138,7 @@ describe('res matches a path but none of its HTTP methods', function () {
       });
     });
   });
+
   describe('POST HTTP method for all paths', function () {
     it('should throw an error for /v1/sales/summary-sales', function (done) {
       chai.request(baseURL)
@@ -163,6 +168,7 @@ describe('res matches a path but none of its HTTP methods', function () {
       });
     });
   });
+
   describe('PUT HTTP method for all paths', function () {
     it('should throw an error for /v1/sales/summary-sales', function (done) {
       chai.request(baseURL)
@@ -192,6 +198,7 @@ describe('res matches a path but none of its HTTP methods', function () {
       });
     });
   });
+
   describe('DELETE HTTP method for all paths', function () {
     it('should throw an error for /v1/sales/summary-sales', function (done) {
       chai.request(baseURL)
@@ -219,6 +226,18 @@ describe('res matches a path but none of its HTTP methods', function () {
         expect(assertion).to.throw('No \'DELETE\' method defined for path \'/v1/core/businesses/{businessIds}\' in OpenAPI spec');
         done();
       });
+    });
+  });
+});
+
+describe('res matches no paths in OpenAPI spec', function () {
+  it('should throw an error if path does not exist in spec', function (done) {
+    chai.request(baseURL)
+    .delete('/does/not/exist')
+    .end(function(err,res){
+      const assertion = () => expect(res).to.not.satisfyApiSpec;
+      expect(assertion).to.throw('No \'/does/not/exist\' path defined in OpenAPI spec');
+      done();
     });
   });
 });

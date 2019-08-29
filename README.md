@@ -36,6 +36,7 @@ These instructions will get you a copy of the project up and running the contrac
 ## Improvements
 * Make it so any baseurl can be passed along with the params so different environments can be tested.
 * add more tests that test unhappy paths
+* add a linter
 * clean up code to make less repetitive
 
 ## Built With
